@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+	<link rel="stylesheet" href="%PUBLIC_URL%/bootstrap.css">
+	<!--
+      Notice the use of %PUBLIC_URL% in the tag above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+	<title>React App</title>
+	<script>
+        window.FORM_PARAMS = {
+            alt_text: "Elite Package",
+            location: "Ikeja Lagos",
+            price: "50000",
+            urgency: "Starts In 3 Days",
+            image: "",
+            heading: "Fashion Design Lessons",
+            subject: "French",
+            reviews: "5",
+            rating: 4.3,
+			phone_number: "09094526878"
+        }
+    </script>
+	<style>
+		.btn-tutor {
+			color: #fff;
+			background-color: #63AB62;
+			box-shadow: 0 2px 2px rgba(0, 0, 0, .05), inset 0 -2px 0 rgba(0, 0, 0, .12), inset 0 1px 0 rgba(255, 255, 255, .3);
+			border: 1px solid #569f55;
+		}
+		
+		.btn-tutor.active,
+		.btn-tutor.focus,
+		.btn-tutor:active,
+		.btn-tutor:focus,
+		.btn-tutor:hover,
+		.open>.btn-tutor.dropdown-toggle {
+			color: #fff;
+			background-color: #4d8e4c;
+			border-color: #407740;
+		}
+	</style>
+	<style>
+		.package .headtext {
+			font-size: 40px;
+			line-height: 45px;
+		}
+		
+		.package .subtext {
+			font-size: 16px;
+			line-height: 20px;
+		}
+		
+		.filter-form {}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="col-md-12">
+			<div id="pricing-location"> </div>
+			<div class="row">
+				<div id="root" class="col-md-4 col-md-push-8"></div>
+				<div class="col-md-8 col-md-pull-4">
+					<div class="row">
+						<div style="margin-bottom: 3em;" class="package">
+							<div class="headtext font-head">
+								About you
+							</div>
+							<div class="subtext">
+								Please give us some more details
+							</div>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-md-11">
+
+							<div class="row">
+								<h4 class="font-head row-space-4 padding-top-25 h4_vwthnk">Tell us your goal</h4>
+								<div class="form-group ">
+									<label for="id_expectation" class="control-label">Please what is your specific goal for this lesson? Be as detailed as possible.</label>
+									<br>
+									<small class="text-info"><em>E.g. "I want to prepare my son for SAT exams, he needs help with the Math section" or "I want to learn how to play the piano as a beginner" or "I need help with assignments for my kids especially in English"</em></small>
+									<textarea name="" id="" rows="4" class="form-control"></textarea>
+								</div>
+								<input id="id_referral_code", name="referral_code" type="hidden" />
+							</div>
+							<hr class="row hr-styled">
+							<div class="row">
+								<div class="pull-left">
+									<div class="media">
+										<div class="media-body">
+											<h4 class="font-head row-space-4 padding-top-25 brightgreen" style="line-height:0">
+												Personal details
+											</h4>
+										</div>
+										<div class="media-right">
+											<img style="padding-top: 20px" class="safety-icon" width="50%">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group ">
+											<label for="id_" class="control-label margin-bottom-5">First name</label>
+											<input class="form-control" data-parsley-error-message="Please enter your first name" id="id_first_name" maxlength="40" name="first_name"
+												required="true" type="text">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group ">
+											<label for="id_" class="control-label margin-bottom-5">Last name</label>
+											<input class="form-control" data-parsley-error-message="Please enter your last name" id="id_last_name" maxlength="40" name="last_name"
+												required="true" type="text">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group ">
+											<label class="control-label margin-bottom-5">Phone number</label>
+											<div class="input-group">
+												<div class="input-group-addon">+234</div>
+												<input data-parsley-equalto-message="Please enter a valid phone number" class="form-control" data-parsley-maxlength-error-message="Number is too long. Please check again or remove +234"
+													id="id_number" name="number" required="true" type="text">
+											</div>
+
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group ">
+											<label class="control-label margin-bottom-5">Please re-type phone</label>
+											<div class="input-group">
+												<div class="input-group-addon">+234</div>
+												<input data-parsley-equalto="#id_number" class="form-control" data-parsley-error-message="Please confirm your phone number"
+													id="id_primary_phone_no1" maxlength="14" minlength="10" name="primary_phone_no1" placeholder="Confirm Phone Number"
+													required="true" type="text">
+												<input type="hidden" id="number_field" value="07035209976">
+											</div>
+
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6 pad-up-18">
+										<div class="form-group ">
+											<label for="id_gender" class="control-label margin-bottom-5">Preferred gender of tutor</label>
+											<select class="form-control" id="id_gender" name="gender">
+                                            <option value="" selected="selected">Any gender is fine</option>
+                                            <option value="M">I prefer a Male</option>
+                                            <option value="F">I prefer a Female</option>
+                                        </select>
+										</div>
+									</div>
+
+									<div class="col-sm-6 pad-up-18">
+										<div class="form-group ">
+											<label for="id_Where you heard" class="control-label margin-bottom-5">How did you hear about us?</label>
+											<select class="form-control" id="id_where_you_heard" name="where_you_heard">
+                                            <option value="" selected="selected">Select One</option>
+                                            <option value="1">TV</option>
+                                            <option value="2">Radio</option>
+                                            <option value="3">Facebook</option>
+                                            <option value="4">LinkedIn</option>
+                                            <option value="5">Twitter</option>
+                                            <option value="6">Search Engine (Google/Yahoo/Bing)</option>
+                                            <option value="7">Friend/Family/Word of Mouth</option>
+                                            <option value="8">SMS Notification</option>
+                                            <option value="9">LindaIkeji Blog</option>
+                                            <option value="10">Nairaland</option>
+                                            <option value="11">BellaNaija</option>
+                                            <option value="12">Instagram</option>
+                                            <option value="13">Others</option>
+                                            <option value="14">Phone call (Generic)</option>
+                                            <option value="15">Phone call (Facebook)</option>
+                                        </select>
+										</div>
+
+									</div>
+
+								</div>
+
+								<button id="submit_btn" class="btn btn-lg btn-block btn-primary big-btn">Submit Request</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+			</div>
+		</div>
+
+
+	</div>
+	</div>
+	<!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start`.
+      To create a production bundle, use `npm run build`.
+    -->
+</body>
+
+</html>
