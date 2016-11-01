@@ -3,12 +3,23 @@ import { takeLatest } from 'redux-saga';
 // import { selectedOption, mapStateToProps } from './selectors';
 
 export const selectedOption = state => state.contents.filter(x => x.selected)[0];
-export const mapStateToProps = (state) => {
-    const wasSelected = selectedOption(state) !== undefined;
-    const wasChecked = state.justBrowsing;
+
+export const mapStateToProps = (state, ownProps) => {
     return {
-    ...state,
-  }; };
+        priceOptions: state.priceOptions.map((x,)=> ({...x,subject: state.subject})),
+        priceFactor: state.priceFactor
+    }
+}
+
+
+export const mapDispatchToProps = dispatch => ({
+  selectPrice: (heading, selected) => dispatch({ type: 'SELECT_PRICE', heading, selected }),
+  selectNoOfStudent: no => dispatch({ type: 'SELECT_NO_OF_STUDENT', studentNo: no }),
+  selectHours: no => dispatch({ type: 'SELECT_HOURS', hrs: no }),
+  selectDays: no => dispatch({ type: 'SELECT_DAYS', days: no }),
+  onFormFieldChanged: data => dispatch({ type: 'POPULATE_FIELD', data }),
+  onSubmitForm: () => dispatch({ type: 'SUBMIT_FORM' }),
+});
 
 
 function* resetCounter() {

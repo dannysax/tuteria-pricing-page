@@ -4,6 +4,7 @@ import {Li, P, Span, Ul, Wrapper,
 import { Provider } from 'react-redux';
 import configureStore from '../store';
 import {connect} from "react-redux";
+import {mapStateToProps, mapDispatchToProps} from '../sagas'
 import {getFullDetails, noOfWeeksDisplay, getCssStyle} from './details';
 
 const SinglePrice = ({heading, perHour, subject=null, }) => {
@@ -47,7 +48,7 @@ const SelectItem = ({options, heading, displayKey, plural, value="", onChange}) 
         </Select>
     </SelectBox>
 
-const FilterForm = () => {
+const FilterForm = ({selectNoOfStudent, selectHours, selectDays, priceFactor}) => {
     return (
         <div className="row" id="calc-host-container">
             <Div className="host_7w28ng">
@@ -56,21 +57,24 @@ const FilterForm = () => {
                     heading: "No. of Students",
                     displayKey: "student",
                     plural: "students",
-                    onChange:()=>{}
+                    value: priceFactor.no_of_students,
+                    onChange:(e)=>{selectNoOfStudent(e.target.value)}
                 }}/>
                 <SelectItem {...{
                     options: [1, 2, 3, 4, 5, 6, 7],
                     heading: "Lessons per week",
                     displayKey: "lesson/week",
                     plural: "lessons/week",
-                    onChange:()=>{}
+                    value: priceFactor.days,
+                    onChange:(e)=>{selectDays(e.target.value)}
                 }}/>
                 <SelectItem {...{
                     options: [1, 1.5, 2, 2.5, 3, 4, 5],
                     heading: "Hours per Lesson",
                     displayKey: "hour/lesson",
                     plural: "hours/lesson",
-                    onChange:()=>{}
+                    value: priceFactor.hours_per_day,
+                    onChange:(e)=>{selectHours(e.target.value)}
                 }} />
             </Div>
         </div>
@@ -79,13 +83,13 @@ const FilterForm = () => {
 }
 const store = configureStore();
 
-const Root = ({priceOptions}) =>
+const Root = ({priceOptions, selectNoOfStudent, selectHours, selectDays, priceFactor}) =>
     <div>
         <div className="text-center padding-bottom-15">
             <h1 className="dollars blue-font">Pricing Options</h1>
             <p className="padding-down-10 level-font">Select a price that matches your budget and requirements.</p>
         </div>
-        <FilterForm />
+        <FilterForm {...{selectNoOfStudent, selectHours, selectDays, priceFactor}}/>
         <div className="row">
             <Ol>
                 {priceOptions.map((price, index) =>
@@ -94,13 +98,8 @@ const Root = ({priceOptions}) =>
         </div>
     </div>
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        priceOptions: state.priceOptions.map((x,)=> ({...x,subject: state.subject})),
-    }
-}
 
-const App = connect(mapStateToProps)(Root);
+const App = connect(mapStateToProps, mapDispatchToProps)(Root);
 
 const Pricing = () => {
     return (

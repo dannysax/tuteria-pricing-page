@@ -29,7 +29,9 @@ const priceFactor = (state = {}, action) => {
       return state;
   }
 };
-
+const pricingDeterminant = (state={}, action) => {
+  return state;
+};
 const contentReducer = (state, action) => {
   if (action.type === 'SELECT_PRICE') {
     const selected = (action.heading === state.heading) ? action.selected : false;
@@ -51,6 +53,7 @@ export default combineReducers({
   priceFactor,
   priceOptions,
   subject,
+  pricingDeterminant,
 });
 
 function calculateDiscount(no = 1, discount = 0) {
