@@ -6,6 +6,7 @@ import TutorSummary from './TutorSummary';
 import ExtraInfo from './ExtraInfo';
 import InitialFormSummary from './InitialFormSummary';
 import {connect} from 'react-redux';
+import {mapStateToProps, mapDispatchToProps} from '../sagas';
 
 function toTitle(name) {
   return name.toLowerCase()
@@ -59,7 +60,8 @@ class Sidebar extends React.Component {
     this.setState({ mobile: !this.state.mobile });
   }
   render() {
-    const { mobile = false, phone_number, urgency, subject, alt_text, image, rating, price, reviews, location, heading } = this.props;
+    const { mobile = false,referral:{display, isFetching}, phone_number, urgency, subject, alt_text, image, rating, price, reviews, location, formated_heading,
+      validateCode } = this.props;
     const rating_decimal = (parseFloat(rating) % 1) > 0.2;
     const r = range(Math.floor(parseFloat(rating)));
     return (
@@ -71,10 +73,12 @@ class Sidebar extends React.Component {
         </div>
         <div style={{ border: "1px solid #eeeeee" }} className={`panel ${css(styles.mobile)}`}>
           <TutorSummary {...{
-            heading, rating_decimal, rating, reviews: r, location, first_name: alt_text
+            heading:formated_heading, rating_decimal, rating, reviews: r, location, first_name: alt_text
           }}
             />
-          <MobileAffix mobile={mobile} action={this.state.mobile} price={price} />
+          <MobileAffix mobile={mobile} action={this.state.mobile} {...{
+            price,validateCode,display, isFetching
+          }} />
           <div onClick={this.onMobileClick} className="visible-xs panel-body text-center">
             <a> View pricing and trip summary</a >
           </div>
@@ -95,29 +99,29 @@ Sidebar.propTypes = {
   alt_text: PropTypes.string,
   location: PropTypes.string,
   urgency: PropTypes.string,
-  heading: PropTypes.string,
+  formated_heading: PropTypes.string,
   mobile: PropTypes.bool,
   price: PropTypes.string,
+  validateCode: PropTypes.func,
 };
 
-const App = props =>
-  <div className="row">
-    <div className="hidden-xs">
-      <div>
-        <Sidebar {...props} />
-      </div>
-    </div>
-    <div className="visible-xs">
-      <Sidebar mobile {...props} />
-    </div>
-  </div>
-const mapStateToProps = (state, ownProps) => {
-  const selected = state.priceOptions.filter(x=>x.selected)[0]
-  return {
-    alt_text: `${selected.heading} Package`,
-    price: selected.perHour,
-    heading: `${state.subject ? state.subject : "Academic"} Lessons`,
-    phone_number: "09094526878"
-  }
+const App = ({selected, phone_number, referral, validateCode}) => {
+  return (
+    <div>
+      {selected ?
+        <div className="row">
+          <div className="hidden-xs">
+            <div>
+              <Sidebar {...{...selected, phone_number, referral, validateCode}} />
+            </div>
+          </div>
+          <div className="visible-xs">
+            <Sidebar mobile {...{...selected, phone_number, referral, validateCode}} />
+          </div>
+        </div>
+        : null}</div>
+
+  )
 }
-export default connect(mapStateToProps)(App)
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

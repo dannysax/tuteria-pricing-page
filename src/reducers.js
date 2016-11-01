@@ -22,7 +22,7 @@ const priceFactor = (state = {}, action) => {
     case 'SELECT_NO_OF_STUDENT':
       return { ...state, no_of_students: action.no_of_students };
     case 'SELECT_HOURS':
-      return { ...state, hours_per_day: action.hours_per_day };
+      return { ...state, hours_per_day: action.hrs };
     case 'SELECT_DAYS':
       return { ...state, noOfDays: action.days };
     default:
@@ -45,6 +45,22 @@ const contentReducer = (state, action) => {
 const priceOptions = (state = [], action) => {
   return state.map(x=> contentReducer(x, action));
 }
+const referral = (state={code:"",amount:0, display: true, isFetching: false}, action) => {
+  if(action.type === "UPDATE_REFERRAL_CODE"){
+    return {...state, 
+      code: action.code, 
+      amount: action.amount, 
+      display: action.display}
+  }
+  if(action.type === "FETCH_CODE_START"){
+    return {...state, isFetching: true}
+  }
+  if(action.type === "FETCH_CODE_STOP"){
+    return {...state, isFetching: false}
+  }
+  return state
+}
+const processingFee = (state=2000, action) => state;
 const subject = (state="", action)=> state
 export default combineReducers({
   hours,
@@ -54,22 +70,6 @@ export default combineReducers({
   priceOptions,
   subject,
   pricingDeterminant,
+  processingFee,
+  referral,
 });
-
-function calculateDiscount(no = 1, discount = 0) {
-  return 1 + ((no - 1) * (100 - discount) / 100);
-}
-
-export const getTotalPrice = (state, price = 1000, discount = 0, asString = true) => {
-  const students = calculateDiscount(state.noOfStudents, discount);
-  let basePrice = price * state.hours * students;
-  if (state.weeks > 1) {
-    const newWeek = state.weeks <= 4 ? state.weeks : 4;
-    basePrice *= newWeek;
-  }
-  return asString ? `₦${basePrice}` : basePrice;
-};
-
-export const summaryDisplay = (state) => {
-  return `12 lessons x 1 month`;
-};

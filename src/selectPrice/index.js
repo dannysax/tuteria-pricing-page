@@ -2,18 +2,28 @@ import React from 'react'
 import {Li, P, Span, Ul, Wrapper,
     H3, SelectDiv, Ol, Select, SelectBox, Div} from './components';
 import { Provider } from 'react-redux';
-import configureStore from '../store';
+import store from '../store';
 import {connect} from "react-redux";
 import {mapStateToProps, mapDispatchToProps} from '../sagas'
 import {getFullDetails, noOfWeeksDisplay, getCssStyle} from './details';
 
-const SinglePrice = ({heading, perHour, subject=null, }) => {
+const Button = ({selected, ...rest}) => 
+    <button className={`btn ${selected ? "btn-primary" : "btn-tutor"} btn-lg col-xs-12 col-sm-8 col-sm-offset-2`} {...rest} />
+
+const SinglePrice = ({heading, price, subject=null,weeks, selected, selectPrice }) => {
     const {description, portfolio} = getFullDetails(heading, subject);
-    const duration = noOfWeeksDisplay(2);
-    const newPrice = new Number(perHour);
+    const duration = noOfWeeksDisplay(weeks);
+    const newPrice = new Number(price);
     const classType = getCssStyle(heading)
+    const onClick = () => {
+        if(selected){
+             console.log("yes") 
+        }else{
+            selectPrice(heading, true)
+            document.getElementById("root").scrollIntoView();
+        }}
     return (
-        <Li {...{ classType }} >
+        <Li {...{ classType,onClick }} >
             <Wrapper>
                 <H3>{heading}</H3>
                 <P>
@@ -29,9 +39,10 @@ const SinglePrice = ({heading, perHour, subject=null, }) => {
                         <li key={index}>{p}</li>) }
                 </Ul>
                 <SelectDiv>
-                    <button className="btn btn-tutor btn-lg col-xs-12 col-sm-8 col-sm-offset-2">
-                        Select
-                    </button>
+                    <Button selected={selected} {...{
+                        children: selected? "Selected" : "Select",
+                        onClick
+                    }} /> 
                 </SelectDiv>
             </Wrapper>
         </Li>
@@ -65,7 +76,7 @@ const FilterForm = ({selectNoOfStudent, selectHours, selectDays, priceFactor}) =
                     heading: "Lessons per week",
                     displayKey: "lesson/week",
                     plural: "lessons/week",
-                    value: priceFactor.days,
+                    value: priceFactor.noOfDays,
                     onChange:(e)=>{selectDays(e.target.value)}
                 }}/>
                 <SelectItem {...{
@@ -81,9 +92,8 @@ const FilterForm = ({selectNoOfStudent, selectHours, selectDays, priceFactor}) =
 
     )
 }
-const store = configureStore();
 
-const Root = ({priceOptions, selectNoOfStudent, selectHours, selectDays, priceFactor}) =>
+const Root = ({priceOptions,selectPrice, selectNoOfStudent, selectHours, selectDays, priceFactor}) =>
     <div>
         <div className="text-center padding-bottom-15">
             <h1 className="dollars blue-font">Pricing Options</h1>
@@ -93,7 +103,12 @@ const Root = ({priceOptions, selectNoOfStudent, selectHours, selectDays, priceFa
         <div className="row">
             <Ol>
                 {priceOptions.map((price, index) =>
-                    <SinglePrice key={index} {...price} />) }
+                    <SinglePrice {...{
+                        key: index,
+                        ...price,
+                        weeks: priceFactor.noOfWeeks,
+                        selectPrice
+                    }} />) }
             </Ol>
         </div>
     </div>
@@ -108,4 +123,5 @@ const Pricing = () => {
         </Provider>
     )
 }
+store.dispatch({type: "ON_LOAD"})
 export default Pricing

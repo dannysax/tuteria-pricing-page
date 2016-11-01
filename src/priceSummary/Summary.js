@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { connect } from 'react-redux';
-import { getTotalPrice, summaryDisplay } from '../reducers';
+import { mapStateToProps } from '../sagas';
 import styled from 'styled-components';
 
 const secondStyle = StyleSheet.create({
@@ -45,15 +45,18 @@ class InviteCode extends React.Component {
         super();
         this.state = {
             displayForm: false,
-            displaySummary: false
+            displaySummary: false,
+            code: ""
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onCheckCode = () => {
+            this.props.validateCode(this.state.code)
             this.setState({displaySummary: true});
         }
     }
     onSubmit() {
         this.setState({ displayForm: !this.state.displayForm })
+        
     }
     render() {
 
@@ -66,7 +69,8 @@ class InviteCode extends React.Component {
                             {!this.state.displayForm ?
                                 <A onClick={this.onSubmit}>Referral Code</A> :
                                 <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="Invite Code" />
+                                    <input onBlur={e=> this.setState({code: e.target.value})} 
+                                    type="text" className="form-control" placeholder="Invite Code" />
                                     <span className="input-group-btn">
                                         <button onClick={this.onCheckCode}  className="btn btn-default" type="button">Apply Code!</button>
                                     </span>
@@ -81,7 +85,7 @@ class InviteCode extends React.Component {
     }
 }
 
-let SecondSection = ({ display = false, summary, totalPrice }) => (
+let SecondSection = ({ display = false, summary, totalPrice, validateCode, display2,isFetching }) => (
     <div className={`panel-body hide-sm ${display ? '' : 'hidden-xs'}`}>
         <table className={css(secondStyle.summary_card) }>
             <tbody>
@@ -97,7 +101,7 @@ let SecondSection = ({ display = false, summary, totalPrice }) => (
                     </td >
                     <td className="text-right price-item__price">₦2000</td >
                 </tr >
-                <InviteCode />
+                {display2 && !isFetching ? <InviteCode {...{validateCode}} />: null}
 
             </tbody >
         </table >
@@ -107,6 +111,7 @@ SecondSection.propTypes = {
     display: PropTypes.bool,
     summary: PropTypes.string,
     totalPrice: PropTypes.string,
+    validateCode: PropTypes.func,
 };
 
 let ThirdSection = ({ actualPrice, processingFee = 2000 }) => (
@@ -117,7 +122,7 @@ let ThirdSection = ({ actualPrice, processingFee = 2000 }) => (
                     <tr className={css(thirdStyle.td) }>
                         <td> Total &nbsp; </td >
                         <td className="text-right price-item__price">
-                            <div className="">{`₦${actualPrice + processingFee}`}
+                            <div className="">{`₦${actualPrice}`}
                             </div >
                         </td >
                     </tr >
@@ -133,29 +138,27 @@ ThirdSection.propTypes = {
     actualPrice: PropTypes.number,
     processingFee: PropTypes.number,
 };
-const mProps1 = (state, props) => {
-    const price = parseInt(props.price, 0);
-    return {
-        totalPrice: getTotalPrice(state, price, 0),
-        summary: summaryDisplay(state),
-        actualPrice: getTotalPrice(state, price, 0, false),
-        processingFee: state.processingFee,
-    };
-};
-SecondSection = connect(mProps1, null)(SecondSection);
-ThirdSection = connect(mProps1, null)(ThirdSection);
+SecondSection = connect(mapStateToProps, null)(SecondSection);
+ThirdSection = connect(mapStateToProps, null)(ThirdSection);
 
-const MobileAffix = ({ mobile, action, price, processingFee }) => (
+const MobileAffix = ({ mobile, action, price, processingFee, validateCode, display, isFetching }) => (
     <div>
         {mobile ?
             <div>
-                    <SecondSection display={action}  price={price}/>
+                    <SecondSection display={action}  {...{
+                        price,
+                        display2:display,
+                        validateCode,
+                        isFetching
+                    }}/>
                     <hr style={{ marginTop: 0 }} />
                     <ThirdSection mobile={action}  price={price} />
                 </div>
             :
             <div>
-                <SecondSection display={action}  price={price} />
+                <SecondSection display={action}  {...{
+                    price,validateCode,display2:display,isFetching
+                }} />
                 <hr style={{ marginTop: 0 }} />
                 <ThirdSection mobile={action} price={price} />
             </div> }

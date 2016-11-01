@@ -5,9 +5,8 @@ import { Provider } from 'react-redux';
 import App from './Sidebar';
 import { throttle } from 'lodash';
 // import { loadState, saveState } from '../localStorage';
-import configureStore from '../store';
+import store from '../store';
 
-const store = configureStore();
 const Root = () => (
       <Provider store={store} >
       <App />
