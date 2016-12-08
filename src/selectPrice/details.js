@@ -10,13 +10,13 @@ const regularDetails = (subject) => {
     }
   }
   return  {
-   description: `You get undergraduates or graduates with excellent trackrecord or brilliant teachers 
+   description: `You get top undergraduates or graduates with excellent trackrecord or brilliant teachers 
             from a normal school. `,
     portfolio: [
         "Experience: 1-3 years teaching",
         "Curriculum: Nigerian mostly",
-        "Nursery/Primary: Non-Montessori",
-        "Local: Entrance, JSCE, WAEC, NECO & UTME",
+        "Nur/Pry: Non-Montessori",
+        "Local: Entrance, JSCE, WAEC & UTME",
         "Foreign: Not Applicable"
     ],
       
@@ -33,13 +33,12 @@ const expertDetails = (subject)=>{
         ],
     }
   }return {
-      description: `You get expert teachers or graduates from 
-          notable schools in Lagos with relevant training & experience. `,
+      description: `You get expert teachers or top graduates from notable schools in ${window.STATE} with relevant training & experience.`,
       portfolio: [
           "Experience: 2-6 years teaching",
           "Curriculum: Nigerian, British or American",
-          "Nursery/Primary: Montessori or KeyStages",
-          "Local: Entrance, JSCE, WAEC, NECO & UTME",
+          "Nur/Pry: Montessori or KeyStages",
+          "Local: Entrance, JSCE, WAEC, UTME",
           "Foreign: IGCSE, Checkpoints, BECE, IB, SAT, IELTS",
       ],
     }
@@ -58,12 +57,12 @@ const eliteDetails = (subject) => {
   }
   return {
     description: `You get well-trained and seasoned teachers 
-        from the topmost schools in Lagos with proven trackrecord.`,
+        from the topmost schools in ${window.STATE} with proven trackrecord.`,
     portfolio: [
         "Experience: 3-15 years teaching",
         "Curriculum: Nigerian, British or American",
-        "Nursery/Primary: Montessori or KeyStages",
-        "Local: Entrance, JSCE, WAEC, NECO & UTME",
+        "Nur/Pry: Montessori or KeyStages",
+        "Local: Entrance, JSCE, WAEC & UTME",
         "Foreign: IGCSE, Checkpoints, BECE, IB, SAT, IELTS",
     ],    
   }
@@ -71,9 +70,9 @@ const eliteDetails = (subject) => {
 
 export const getFullDetails = (type, subject) => {
     switch(type){
-        case "Expert":
+        case "Plan 2":
             return expertDetails(subject);
-        case "Elite":
+        case "Plan 3":
             return eliteDetails(subject);
         default:
             return regularDetails(subject);
@@ -81,9 +80,9 @@ export const getFullDetails = (type, subject) => {
 }
 export const getCssStyle = (type) => {
     switch(type){
-        case "Expert":
+        case "Plan 2":
             return "two";
-        case "Elite":
+        case "Plan 3":
             return "four";
         default:
             return "one";

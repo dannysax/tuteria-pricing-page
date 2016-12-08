@@ -77,10 +77,10 @@ class Sidebar extends React.Component {
           }}
             />
           <MobileAffix mobile={mobile} action={this.state.mobile} {...{
-            price,validateCode,display, isFetching
+            price,validateCode,display, isFetching, referral: this.props.referral
           }} />
           <div onClick={this.onMobileClick} className="visible-xs panel-body text-center">
-            <a> View pricing and trip summary</a >
+            <a> View pricing detail</a >
           </div>
         </div >
         <div style={{ marginBottom: 0 }} className="panel">
@@ -101,7 +101,7 @@ Sidebar.propTypes = {
   urgency: PropTypes.string,
   formated_heading: PropTypes.string,
   mobile: PropTypes.bool,
-  price: PropTypes.string,
+  price: PropTypes.number,
   validateCode: PropTypes.func,
 };
 

@@ -9,7 +9,7 @@ const FourthSection = ({the_class, phone_number}) => (
                         <h4 className="risk-messagebox__title space-top-1">
                             Need Help or Have Questions?
                         </h4>
-                        <hr />
+                       
                     </div >
                     <div className="va-middle col-sm-2">
                         <div className="img--air-defender-no-overlap text-right" />
@@ -17,7 +17,8 @@ const FourthSection = ({the_class, phone_number}) => (
                     </div >
                 </div >
                 <div className="col-sm-10 col-md-12 col-lg-12 risk-messagebox__content">
-                    {`Call us on ${phone_number}`}
+                     <hr />
+                    <h3 style={{marginTop: 0}}>{`Call us on ${phone_number}`}</h3>
                 </div >
             </div >
         </div >

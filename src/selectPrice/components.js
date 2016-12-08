@@ -24,7 +24,7 @@ function getAlign({dollar, month, country}) {
 
 export const Li = styled.li`
     border: 1px solid #ccc;
-    height: 35.5em;
+    height: 30.4em;
     flex: 1;
     display: block;
     float: left;
@@ -34,8 +34,12 @@ export const Li = styled.li`
     &:hover{
         cursor: pointer;
     }
+    @media(min-width: 768px) and (max-width: 992px){
+        height: 37.4em;
+    }
     @media(max-width: 768px) {
          margin-bottom: 2em;
+         height: 34.5em;
     }
 `
 
@@ -71,7 +75,7 @@ position: absolute;
 left: 0;
 right: 0;
 text-align: center;
-bottom: 40px;
+bottom: 20px;
 @media(max-width: 767px){
     left: 35px;
     right: 35px;
@@ -100,6 +104,7 @@ flex-basis: 0px;
 
 export const Div = styled.article`
 display: flex;
+margin-bottom: 20px;
 @media(max-width: 767px){
     flex-direction: column;
 }`

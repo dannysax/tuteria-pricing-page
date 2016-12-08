@@ -40,18 +40,24 @@ const A = styled.a`
 &:hover{
     cursor: pointer;
 }`
+// const AStyle = StyleSheet.create({
+//     main:{
+//         ':hover':{
+//             cursor: "pointer",
+//         }
+//     }
+// })
+// const A = props => <a className={css(AStyle.main)} {...props} />
 class InviteCode extends React.Component {
     constructor() {
         super();
         this.state = {
             displayForm: false,
-            displaySummary: false,
             code: ""
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onCheckCode = () => {
             this.props.validateCode(this.state.code)
-            this.setState({displaySummary: true});
         }
     }
     onSubmit() {
@@ -59,11 +65,11 @@ class InviteCode extends React.Component {
         
     }
     render() {
-
+        const {referral:{amount}} = this.props;
         return (
             <tr className={css(secondStyle.td) }>
                 <td>
-                    {this.state.displaySummary ?
+                    {amount ?
                         <span>Referral Discount</span> :
                         <div>
                             {!this.state.displayForm ?
@@ -77,7 +83,7 @@ class InviteCode extends React.Component {
                                 </div>    }
                         </div>} 
                 </td>
-                {this.state.displaySummary? <td className="text-right price-item__price">- ₦1500</td>: null}
+                {amount? <td className="text-right price-item__price">{`- ₦${amount}`}</td>: null}
             </tr>
 
 
@@ -85,7 +91,7 @@ class InviteCode extends React.Component {
     }
 }
 
-let SecondSection = ({ display = false, summary, totalPrice, validateCode, display2,isFetching }) => (
+let SecondSection = ({ display = false,referral, summary, totalPrice, validateCode, display2,isFetching }) => (
     <div className={`panel-body hide-sm ${display ? '' : 'hidden-xs'}`}>
         <table className={css(secondStyle.summary_card) }>
             <tbody>
@@ -96,12 +102,12 @@ let SecondSection = ({ display = false, summary, totalPrice, validateCode, displ
                     </td >
                 </tr>
                 <tr className={css(secondStyle.td) }>
-                    <td> Service fee
-                        <i className={`fa fa-question-circle ${css(secondStyle.icon)}`} />
+                    <td> Service fee (one-time)
+                        
                     </td >
                     <td className="text-right price-item__price">₦2000</td >
                 </tr >
-                {display2 && !isFetching ? <InviteCode {...{validateCode}} />: null}
+                {display2 && !isFetching ? <InviteCode {...{validateCode, referral}} />: null}
 
             </tbody >
         </table >
@@ -119,7 +125,7 @@ let ThirdSection = ({ actualPrice, processingFee = 2000 }) => (
         <div className="sidebar-text-large space-2">
             <table className={css(thirdStyle.summary_card) }>
                 <tbody>
-                    <tr className={css(thirdStyle.td) }>
+                    <tr className={`font-head blue-font ${css(thirdStyle.td)} `}>
                         <td> Total &nbsp; </td >
                         <td className="text-right price-item__price">
                             <div className="">{`₦${actualPrice}`}
@@ -128,9 +134,6 @@ let ThirdSection = ({ actualPrice, processingFee = 2000 }) => (
                     </tr >
                 </tbody >
             </table >
-        </div >
-        <div className={`hidden-xs ${css(thirdStyle.extra)}`}>
-            NB: Service Fee is a one time payment
         </div >
     </div >
 );
@@ -141,7 +144,7 @@ ThirdSection.propTypes = {
 SecondSection = connect(mapStateToProps, null)(SecondSection);
 ThirdSection = connect(mapStateToProps, null)(ThirdSection);
 
-const MobileAffix = ({ mobile, action, price, processingFee, validateCode, display, isFetching }) => (
+const MobileAffix = ({ mobile, action, price,referral, processingFee, validateCode, display, isFetching }) => (
     <div>
         {mobile ?
             <div>
@@ -149,7 +152,8 @@ const MobileAffix = ({ mobile, action, price, processingFee, validateCode, displ
                         price,
                         display2:display,
                         validateCode,
-                        isFetching
+                        isFetching,
+                        referral
                     }}/>
                     <hr style={{ marginTop: 0 }} />
                     <ThirdSection mobile={action}  price={price} />

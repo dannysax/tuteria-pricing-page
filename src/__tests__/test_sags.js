@@ -41,4 +41,7 @@ test('total price returns the correct result', () => {
   expect(determinePrice(1500, 3, 1, 3)).toBe(13500);
   expect(determinePrice(1500, 3, 1, 3, 10)).toBe(12150);
   expect(determinePrice(2000, 1, 1, 1)).toBe(2700);
+  expect(determinePrice(2000, 2, 1, 1)).toBe(4000);
+  expect(determinePrice(2000, 2, 2, 3)).toBe(18000);
+  expect(determinePrice(2000, 1, 2, 3)).toBe(12000);
 });

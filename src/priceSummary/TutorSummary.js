@@ -25,7 +25,7 @@ export const TutorSummary = ({ first_name, location, heading, reviews, rating_de
             <div className={css(fourthStyle.host) }>
                 <span>{first_name}</span>
             </div>
-            <div className={css(fourthStyle.heading) }>
+            <div className={`font-head ${css(fourthStyle.heading)} `}>
                 {heading}</div>             
             <hr className="hidden-xs" style={{marginBottom: 0}} />
         </div>

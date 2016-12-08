@@ -1,0 +1,810 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/bootstrap.css">
+    <script src="/jquery.js"></script>
+    <!--
+      Notice the use of  in the tag above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+    <script>
+        window.FORM_PARAMS = {
+            alt_text: "Elite Package",
+            location: "Ikeja Lagos",
+            price: "50000",
+            urgency: "Starts In 3 Days",
+            image: "",
+            heading: "Fashion Design Lessons",
+            subject: "French",
+            reviews: "5",
+            rating: 4.3,
+			phone_number: "09094526878"
+        }
+    </script>
+    <style>
+        .btn-tutor {
+            color: #fff;
+            background-color: #63AB62;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, .05), inset 0 -2px 0 rgba(0, 0, 0, .12), inset 0 1px 0 rgba(255, 255, 255, .3);
+            border: 1px solid #569f55;
+        }
+        
+        .btn-tutor.active,
+        .btn-tutor.focus,
+        .btn-tutor:active,
+        .btn-tutor:focus,
+        .btn-tutor:hover,
+        .open>.btn-tutor.dropdown-toggle {
+            color: #fff;
+            background-color: #4d8e4c;
+            border-color: #407740;
+        }
+    </style>
+    <style>
+        .package .headtext {
+            font-size: 40px;
+            line-height: 45px;
+        }
+        
+        .package .subtext {
+            font-size: 16px;
+            line-height: 20px;
+        }
+        
+        .filter-form {}
+    </style>
+    <style type="text/css">
+        .iRROgH {
+            background-color: #fff;
+            border: 1px #ccc solid;
+            border-radius: 2px;
+            display: -moz-inline-stack;
+            display: inline-block;
+            zoom: 1;
+            text-align: center;
+        }
+        
+        .bYnruQ {
+            padding: 20px 10px 20px 10px;
+        }
+        
+        .hzEAqz {
+            font-size: 13px;
+            line-height: 16px;
+        }
+    </style>
+    <style type="text/css">
+        .App {
+            text-align: center;
+        }
+        
+        .App-logo {
+            -webkit-animation: App-logo-spin infinite 20s linear;
+            animation: App-logo-spin infinite 20s linear;
+            height: 80px;
+        }
+        
+        .App-header {
+            background-color: #222;
+            height: 150px;
+            padding: 20px;
+            color: white;
+        }
+        
+        .App-intro {
+            font-size: large;
+        }
+        
+        @-webkit-keyframes App-logo-spin {
+            from {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes App-logo-spin {
+            from {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <style type="text/css">
+        .padding-top-102 {
+            padding-top: 102px;
+        }
+        
+        @media (max-width: 768px) {
+            .padding-top-102 {
+                padding-top: 120px;
+            }
+        }
+        
+        .toggle-btn {
+            text-align: center;
+            margin: 1px 10px;
+            padding: 0.4em 3em;
+            color: #0bb8e3;
+            background-color: #FFF;
+            border-radius: 4px;
+            display: inline-block;
+            border: solid 1px #CCC;
+            cursor: pointer;
+        }
+        /* CSS only version */
+        
+        .toggle-btn-grp.cssonly * {
+            width: 140px;
+            height: 40px;
+            line-height: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .toggle-btn-grp.cssonly * {
+                width: 100%;
+            }
+        }
+        
+        .toggle-btn-grp.cssonly * p {
+            margin-left: 7px;
+            text-align: center;
+            width: 140px;
+            height: 10px;
+            font-size: 12px;
+            color: #96CB50;
+        }
+        
+        @media (max-width: 768px) {
+            .toggle-btn-grp.cssonly * p {
+                width: 100%;
+            }
+        }
+        
+        .toggle-btn-grp.cssonly * span {
+            display: inline-block;
+            position: absolute;
+            top: 65px;
+            text-align: center;
+            margin-left: 10px;
+        }
+        
+        .bb7 {
+            position: relative;
+        }
+        
+        .toggle-btn-grp.cssonly div {
+            display: inline-block;
+            position: relative;
+            margin: 5px 15px 0px -5px;
+        }
+        
+        .toggle-btn-grp.cssonly div label {
+            position: absolute;
+            z-index: 0;
+            padding: 5px;
+            text-align: center;
+            font-weight: normal;
+        }
+        
+        .toggle-btn-grp.cssonly div input {
+            position: absolute;
+            z-index: 1;
+            cursor: pointer;
+            opacity: 0;
+        }
+        
+        .toggle-btn-grp.cssonly div:hover label {
+            border: solid 1px #a0d5dc !important;
+            background: #f1fdfe;
+        }
+        
+        .toggle-btn-grp.cssonly div input:checked + label {
+            border: 1px solid #00cded;
+            background-color: #00cded;
+            color: white;
+        }
+        
+        .row-space-32 {
+            margin-bottom: 50px;
+        }
+        
+        #__p_ew_l td {
+            border-top: 0 !important;
+            border-bottom: 0 !important;
+        }
+        
+        @media (min-width: 768px) {
+            #__paga_btn.__proceed {
+                position: absolute;
+                right: 0;
+                margin-top: -33px;
+                margin-right: 25px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .select-page-css {
+                width: 66.66667%;
+                float: left;
+                position: relative;
+                min-height: 1px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 992px) {
+            #base.container {
+                width: 800px;
+            }
+        }
+        
+        .fa-28 {
+            font-size: 28px;
+        }
+        
+        .summ .bb322 {
+            margin-bottom: 10px;
+        }
+        
+        .summ .fa-stack {
+            margin-right: 10px;
+        }
+        
+        .example-enter {
+            opacity: 0.01;
+        }
+        
+        .example-enter,
+        .example-enter-active {
+            opacity: 1;
+            -webkit-transition: opacity 0.5s ease-in;
+            transition: opacity 0.5s ease-in;
+        }
+        
+        .example-leave {
+            opacity: 1;
+        }
+        
+        .example-leave.example-leave-active {
+            opacity: 0.01;
+            -webkit-transition: opacity 0.5s ease-in;
+            transition: opacity 0.5s ease-in;
+        }
+        
+        .slide-enter {
+            top: -200px;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .slide-enter-active {
+            top: 0px;
+        }
+        
+        .slide-leave {
+            top: 0px;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .slide-leave-active {
+            top: 200px;
+            opacity: 0;
+        }
+        /*# sourceMappingURL=request_received.css.map*/
+        
+        .wallet_price {
+            padding-bottom: 4px !important;
+            background-color: #5cb85c;
+            color: white !important;
+            font-size: 15px;
+            margin-top: 8px;
+            padding-top: 4px !important;
+            border-radius: 25px;
+        }
+        
+        .wallet_price:hover {
+            background-color: green !important;
+        }
+        
+        .large-padding {
+            padding: 60px 40px;
+        }
+        
+        section.protection {
+            color: #fff;
+            background: #36648B;
+            font-size: 18px
+        }
+        
+        section.protection .media-photo {
+            background: transparent
+        }
+    </style>
+    <style type="text/css" data-aphrodite="">
+        .summary_card_tozdih {
+            margin-bottom: 0px !important;
+            margin-right: 30px !important;
+            float: right !important;
+        }
+        
+        .media_172kq57 {
+            backface-visibility: hidden !important;
+            position: relative !important;
+            display: inline-block !important;
+            vertical-align: bottom !important;
+            overflow: hidden !important;
+            background-color: #bbb !important;
+            border-radius: 50% !important;
+            border: 2px solid #fff !important;
+            -webkit-backface-visibility: hidden !important;
+        }
+        
+        @media(max-width: 768px) {
+            .mobile_1t9dcab {
+                margin-bottom: 0px !important;
+            }
+        }
+        
+        .host_5jglgk {
+            color: #757575 !important;
+            font-size: 16px !important;
+            margin-bottom: 12px !important;
+        }
+        
+        .heading_1k4vn4h {
+            font-size: 19px !important;
+            line-height: 25px !important;
+        }
+        
+        .summary_card_ymvvy2 {
+            font-size: 16px !important;
+            width: 100% !important;
+        }
+        
+        .td_ncx8ah {
+            padding-bottom: 10px !important;
+            line-height: 2.5 !important;
+        }
+        
+        .icon_1bfu94e {
+            margin-left: 3px !important;
+        }
+        
+        .summary_card_jbk4gr {
+            font-size: 16px !important;
+            width: 100% !important;
+            margin-bottom: 10px !important;
+        }
+        
+        .td_18og9qv {
+            font-size: 24px !important;
+            line-height: 30px !important;
+        }
+    </style>
+    <style>
+        @media(max-width: 768px){
+            #flexContainer{
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body cz-shortcut-listen="true">
+    <div class="container">
+        <div class="col-md-12">
+            <div>
+                <div id="pricing-location">
+                    <div data-reactroot="">
+                        <div class="col-sm-8">
+                            <div style="margin-bottom: 20px; text-align: center;">
+                                <h2>Saran offers these lesson packages</h2>
+                                <div class="Headline">
+                                    <!-- react-text: 6 -->Select a package to continue. You’re covered by our
+                                    <!-- /react-text -->
+                                    <h3 style="display: inline;">100% Satisfaction Guarantee</h3>
+                                </div>
+                            </div>
+                            <div id="flexContainer" style="display: flex;">
+                                <div style="flex: 1 1 0%;">
+                                    <div class="iRROgH">
+                                        <div class="bYnruQ">
+                                            <div style="height: 40px;"><img src="https://prod-takelessons.netdna-ssl.com/images/public/book/thumb.png"
+                                                    alt="Thumb" mat></div>
+                                            <h4 class="Title" style="margin-top: 10px;">The Casual Beginner</h4>
+                                            <div class="hzEAqz">For beginners who just want to try it out.</div>
+                                        </div>
+                                        <div class="Bottom" style="color: rgb(64, 107, 178); padding: 20px 10px;">
+                                            <h3 class="Number">1 Lesson</h3>
+                                            <div style="margin: 15px 0px 5px;">
+                                                <div class="SelectList duration"><select class="form-control" name="duration" placeholder=""><option value="5:30">30-min / $70 each</option><option value="5:45">45-min / $100 each</option><option value="5:60">60-min / $140 each</option></select></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0%;">
+                                    <div class="iRROgH">
+                                        <div class="bYnruQ">
+                                            <div style="height: 40px;"><img src="https://prod-takelessons.netdna-ssl.com/images/public/book/thumb.png"
+                                                    alt="Thumb"></div>
+                                            <h4 class="Title" style="margin-top: 10px;">The Casual Beginner</h4>
+                                            <div class="hzEAqz">For beginners who just want to try it out.</div>
+                                        </div>
+                                        <div class="Bottom" style="color: rgb(64, 107, 178); padding: 20px 10px;">
+                                            <h3 class="Number">1 Lesson</h3>
+                                            <div style="margin: 15px 0px 5px;">
+                                                <div class="SelectList duration"><select class="form-control" name="duration" placeholder=""><option value="5:30">30-min / $70 each</option><option value="5:45">45-min / $100 each</option><option value="5:60">60-min / $140 each</option></select></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0%;">
+                                    <div class="iRROgH">
+                                        <div class="bYnruQ">
+                                            <div style="height: 40px;"><img src="https://prod-takelessons.netdna-ssl.com/images/public/book/thumb.png"
+                                                    alt="Thumb"></div>
+                                            <h4 class="Title" style="margin-top: 10px;">The Casual Beginner</h4>
+                                            <div class="hzEAqz">For beginners who just want to try it out.</div>
+                                        </div>
+                                        <div class="Bottom" style="color: rgb(64, 107, 178); padding: 20px 10px;">
+                                            <h3 class="Number">1 Lesson</h3>
+                                            <div style="margin: 15px 0px 5px;">
+                                                <div class="SelectList duration"><select class="form-control" name="duration" placeholder=""><option value="5:30">30-min / $70 each</option><option value="5:45">45-min / $100 each</option><option value="5:60">60-min / $140 each</option></select></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="margin-top: 30px;">
+                            <div>
+                                <div class="row">
+                                    <div class="hidden-xs">
+                                        <div>
+                                            <div class="summary-card col-center">
+                                                <div class="summary_card_tozdih">
+                                                    <div class="media_172kq57"></div>
+                                                </div>
+                                                <div class="panel mobile_1t9dcab" style="border: 1px solid rgb(238, 238, 238);">
+                                                    <div class="panel-body">
+                                                        <div class="host_5jglgk"><span></span></div>
+                                                        <div class="heading_1k4vn4h"></div>
+                                                        <hr class="hidden-xs" style="margin-bottom: 0px;">
+                                                    </div>
+                                                    <div>
+                                                        <div>
+                                                            <div class="panel-body hide-sm hidden-xs">
+                                                                <table class="summary_card_ymvvy2">
+                                                                    <tbody>
+                                                                        <tr class="td_ncx8ah">
+                                                                            <td>
+                                                                                <!-- react-text: 75 -->12 lessons x 1 month
+                                                                                <!-- /react-text -->
+                                                                                <!-- react-text: 76 -->
+                                                                                <!-- /react-text -->
+                                                                            </td>
+                                                                            <td class="text-right price-item__price">
+                                                                                <div class="">₦0</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="td_ncx8ah">
+                                                                            <td>
+                                                                                <!-- react-text: 81 -->Service fee
+                                                                                <!-- /react-text --><i class="fa fa-question-circle icon_1bfu94e"></i></td>
+                                                                            <td class="text-right price-item__price">₦2000</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <hr style="margin-top: 0px;">
+                                                            <div class="panel-body hide-sm">
+                                                                <div class="sidebar-text-large space-2">
+                                                                    <table class="summary_card_jbk4gr">
+                                                                        <tbody>
+                                                                            <tr class="td_18og9qv">
+                                                                                <td> Total &nbsp; </td>
+                                                                                <td class="text-right price-item__price">
+                                                                                    <div class="">₦2000</div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs panel-body text-center"><a> View pricing and trip summary</a></div>
+                                                </div>
+                                                <div class="panel" style="margin-bottom: 0px;">
+                                                    <div class="hidden">
+                                                        <div class="panel-body" style="border: 1px solid rgb(238, 238, 238);">
+                                                            <div class="risk-messagebox-pane row row-condensed">
+                                                                <div class="va-container va-container-h va-container-v">
+                                                                    <div class="col-sm-10">
+                                                                        <h4 class="risk-messagebox__title space-top-1">Need Help or Have Questions?</h4>
+                                                                        <hr>
+                                                                    </div>
+                                                                    <div class="va-middle col-sm-2">
+                                                                        <div class="img--air-defender-no-overlap text-right"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-10 col-md-12 col-lg-12 risk-messagebox__content">Call us on 09094526878</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="hidden-xs">
+                                                        <div class="panel-body" style="border: 1px solid rgb(238, 238, 238);">
+                                                            <div class="risk-messagebox-pane row row-condensed">
+                                                                <div class="va-container va-container-h va-container-v">
+                                                                    <div class="col-sm-10">
+                                                                        <h4 class="risk-messagebox__title space-top-1">Need Help or Have Questions?</h4>
+                                                                        <hr>
+                                                                    </div>
+                                                                    <div class="va-middle col-sm-2">
+                                                                        <div class="img--air-defender-no-overlap text-right"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-10 col-md-12 col-lg-12 risk-messagebox__content">Call us on 09094526878</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="visible-xs">
+                                        <div class="summary-card col-center">
+                                            <div class="summary_card_tozdih">
+                                                <div class="media_172kq57"></div>
+                                            </div>
+                                            <div class="panel mobile_1t9dcab" style="border: 1px solid rgb(238, 238, 238);">
+                                                <div class="panel-body">
+                                                    <div class="host_5jglgk"><span></span></div>
+                                                    <div class="heading_1k4vn4h"></div>
+                                                    <hr class="hidden-xs" style="margin-bottom: 0px;">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <div class="panel-body hide-sm hidden-xs">
+                                                            <table class="summary_card_ymvvy2">
+                                                                <tbody>
+                                                                    <tr class="td_ncx8ah">
+                                                                        <td>
+                                                                            <!-- react-text: 133 -->12 lessons x 1 month
+                                                                            <!-- /react-text -->
+                                                                            <!-- react-text: 134 -->
+                                                                            <!-- /react-text -->
+                                                                        </td>
+                                                                        <td class="text-right price-item__price">
+                                                                            <div class="">₦0</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="td_ncx8ah">
+                                                                        <td>
+                                                                            <!-- react-text: 139 -->Service fee
+                                                                            <!-- /react-text --><i class="fa fa-question-circle icon_1bfu94e"></i></td>
+                                                                        <td class="text-right price-item__price">₦2000</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <hr style="margin-top: 0px; margin-bottom: 0px;">
+                                                        <div class="panel-body hide-sm">
+                                                            <div class="sidebar-text-large space-2">
+                                                                <table class="summary_card_jbk4gr">
+                                                                    <tbody>
+                                                                        <tr class="td_18og9qv">
+                                                                            <td> Total &nbsp; </td>
+                                                                            <td class="text-right price-item__price">
+                                                                                <div class="">₦2000</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="visible-xs panel-body text-center"><a> View pricing and trip summary</a></div>
+                                            </div>
+                                            <div class="panel" style="margin-bottom: 0px;">
+                                                <div class="hidden">
+                                                    <div class="panel-body" style="border: 1px solid rgb(238, 238, 238);">
+                                                        <div class="risk-messagebox-pane row row-condensed">
+                                                            <div class="va-container va-container-h va-container-v">
+                                                                <div class="col-sm-10">
+                                                                    <h4 class="risk-messagebox__title space-top-1">Need Help or Have Questions?</h4>
+                                                                    <hr>
+                                                                </div>
+                                                                <div class="va-middle col-sm-2">
+                                                                    <div class="img--air-defender-no-overlap text-right"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-10 col-md-12 col-lg-12 risk-messagebox__content">Call us on 09094526878</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden-xs">
+                                                    <div class="panel-body" style="border: 1px solid rgb(238, 238, 238);">
+                                                        <div class="risk-messagebox-pane row row-condensed">
+                                                            <div class="va-container va-container-h va-container-v">
+                                                                <div class="col-sm-10">
+                                                                    <h4 class="risk-messagebox__title space-top-1">Need Help or Have Questions?</h4>
+                                                                    <hr>
+                                                                </div>
+                                                                <div class="va-middle col-sm-2">
+                                                                    <div class="img--air-defender-no-overlap text-right"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-10 col-md-12 col-lg-12 risk-messagebox__content">Call us on 09094526878</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="the-form-section" class="row hidden">
+                <div id="root" class="col-md-4 col-md-push-8"></div>
+                <div id="the-form" class="col-md-8 col-md-pull-4">
+                    <div class="row">
+                        <div style="margin-bottom: 3em;" class="package">
+                            <div class="headtext font-head">
+                                About you
+                            </div>
+                            <div class="subtext">
+                                Please give us some more details
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-11">
+
+                            <div class="row">
+                                <h4 class="font-head row-space-4 padding-top-25 h4_vwthnk">Tell us your goal</h4>
+                                <div class="form-group ">
+                                    <label for="id_expectation" class="control-label">Please what is your specific goal for this lesson? Be as detailed as possible.</label>
+                                    <br>
+                                    <small class="text-info"><em>E.g. "I want to prepare my son for SAT exams, he needs help with the Math section" or "I want to learn how to play the piano as a beginner" or "I need help with assignments for my kids especially in English"</em></small>
+                                    <textarea name="" id="" rows="4" class="form-control"></textarea>
+                                </div>
+                                <input id="id_referral_code" ,="" name="referral_code" type="hidden">
+                                <input type="hidden" id="id_budget" name="budget">
+                                <input type="hidden" id="id_plan" name="plan">
+                            </div>
+                            <hr class="row hr-styled">
+                            <div class="row">
+                                <div class="pull-left">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <h4 class="font-head row-space-4 padding-top-25 brightgreen" style="line-height:0">
+                                                Personal details
+                                            </h4>
+                                        </div>
+                                        <div class="media-right">
+                                            <img style="padding-top: 20px" class="safety-icon" width="50%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label for="id_" class="control-label margin-bottom-5">First name</label>
+                                            <input class="form-control" data-parsley-error-message="Please enter your first name" id="id_first_name" maxlength="40" name="first_name"
+                                                required="true" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label for="id_" class="control-label margin-bottom-5">Last name</label>
+                                            <input class="form-control" data-parsley-error-message="Please enter your last name" id="id_last_name" maxlength="40" name="last_name"
+                                                required="true" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="control-label margin-bottom-5">Phone number</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">+234</div>
+                                                <input data-parsley-equalto-message="Please enter a valid phone number" class="form-control" data-parsley-maxlength-error-message="Number is too long. Please check again or remove +234"
+                                                    id="id_number" name="number" required="true" type="text">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="control-label margin-bottom-5">Please re-type phone</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">+234</div>
+                                                <input data-parsley-equalto="#id_number" class="form-control" data-parsley-error-message="Please confirm your phone number"
+                                                    id="id_primary_phone_no1" maxlength="14" minlength="10" name="primary_phone_no1"
+                                                    placeholder="Confirm Phone Number" required="true" type="text">
+                                                <input type="hidden" id="number_field" value="07035209976">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 pad-up-18">
+                                        <div class="form-group ">
+                                            <label for="id_gender" class="control-label margin-bottom-5">Preferred gender of tutor</label>
+                                            <select class="form-control" id="id_gender" name="gender">
+                                            <option value="" selected="selected">Any gender is fine</option>
+                                            <option value="M">I prefer a Male</option>
+                                            <option value="F">I prefer a Female</option>
+                                        </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 pad-up-18">
+                                        <div class="form-group ">
+                                            <label for="id_Where you heard" class="control-label margin-bottom-5">How did you hear about us?</label>
+                                            <select class="form-control" id="id_where_you_heard" name="where_you_heard">
+                                            <option value="" selected="selected">Select One</option>
+                                            <option value="1">TV</option>
+                                            <option value="2">Radio</option>
+                                            <option value="3">Facebook</option>
+                                            <option value="4">LinkedIn</option>
+                                            <option value="5">Twitter</option>
+                                            <option value="6">Search Engine (Google/Yahoo/Bing)</option>
+                                            <option value="7">Friend/Family/Word of Mouth</option>
+                                            <option value="8">SMS Notification</option>
+                                            <option value="9">LindaIkeji Blog</option>
+                                            <option value="10">Nairaland</option>
+                                            <option value="11">BellaNaija</option>
+                                            <option value="12">Instagram</option>
+                                            <option value="13">Others</option>
+                                            <option value="14">Phone call (Generic)</option>
+                                            <option value="15">Phone call (Facebook)</option>
+                                        </select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <button id="submit_btn" class="btn btn-lg btn-block btn-primary big-btn">Submit Request</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script src="https://wzrd.in/standalone/es7-shim@latest"></script>
+</body>
+
+</html>
