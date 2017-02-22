@@ -10,14 +10,12 @@ const regularDetails = (subject) => {
     }
   }
   return  {
-   description: `You get top undergraduates or graduates with excellent trackrecord or brilliant teachers 
-            from a normal school. `,
+   description: `Includes top graduates/students with good track record or exceptional teachers from regular schools. `,
     portfolio: [
-        "Experience: 1-3 years teaching",
-        "Curriculum: Nigerian mostly",
+        "Experienced Teachers (1 - 5 years)",
+        "Curriculum: Nigerian Only",
         "Nur/Pry: Non-Montessori",
-        "Local: Entrance, JSCE, WAEC & UTME",
-        "Foreign: Not Applicable"
+        "Exams: Local (Entrance, JSCE, WAEC, UME etc.)",
     ],
       
   } 
@@ -33,13 +31,12 @@ const expertDetails = (subject)=>{
         ],
     }
   }return {
-      description: `You get expert teachers or top graduates from notable schools in ${window.STATE} with relevant training & experience.`,
+      description: `Includes top graduates or expert teachers from notable schools in Lagos with relevant training & experience.`,
       portfolio: [
-          "Experience: 2-6 years teaching",
+          "Experienced Teachers (2 - 6 years)",
           "Curriculum: Nigerian, British or American",
           "Nur/Pry: Montessori or KeyStages",
-          "Local: Entrance, JSCE, WAEC, UTME",
-          "Foreign: IGCSE, Checkpoints, BECE, IB, SAT, IELTS",
+          "Exams: Local & Foreign (IGCSE, Checkpoints etc.)",
       ],
     }
 }
@@ -56,14 +53,12 @@ const eliteDetails = (subject) => {
     }
   }
   return {
-    description: `You get well-trained and seasoned teachers 
-        from the topmost schools in ${window.STATE} with proven trackrecord.`,
+    description: `Includes highly experienced and very seasoned teachers from the topmost schools in Lagos.`,
     portfolio: [
-        "Experience: 3-15 years teaching",
+        "Experienced Teachers (3 - 15 years)",
         "Curriculum: Nigerian, British or American",
         "Nur/Pry: Montessori or KeyStages",
-        "Local: Entrance, JSCE, WAEC & UTME",
-        "Foreign: IGCSE, Checkpoints, BECE, IB, SAT, IELTS",
+        "Exams: Local & Foreign (IGCSE, Checkpoints etc.)",
     ],    
   }
 }

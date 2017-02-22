@@ -100,7 +100,7 @@ const FilterForm = ({selectNoOfStudent, selectHours, selectDays, priceFactor}) =
 const Root = ({priceOptions, selectPrice, selectNoOfStudent, selectHours, selectDays, priceFactor}) =>
     <div>
         <div className="text-center padding-bottom-15">
-            <h1 className="dollars blue-font">Pricing Options</h1>
+            <h1 className="dollars blue-font">Select a Lesson Plan</h1>
             <div className="row">
 
                 <p className="col-md-8 col-md-offset-2 padding-down-10 level-font">{window.PriceHeading}</p>

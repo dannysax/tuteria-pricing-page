@@ -15,7 +15,7 @@ export const summaryDisplay = (state) => {
             no_of_students, hours_per_day, noOfDays, days, noOfWeeks, discount },
     } = state;
     const ddd = noOfWeeks >= 4 ? 4 : noOfWeeks
-    const display = noOfWeeks >= 4 ? `1 month` : `${noOfWeeks} week${noOfWeeks > 1 ? 's': ''}`
+    const display = noOfWeeks >= 4 ? `1 month` : `${noOfWeeks} week${noOfWeeks > 1 ? 's' : ''}`
     const total = noOfDays * ddd;
     return `${total} lessons x ${display}`;
 };
@@ -109,29 +109,30 @@ function* resetCounter() {
 
 
 export const getPriceRate = ({ price_base_rate, one_hour_less_price_rate }, noOfHour = 1) => {
-    if (noOfHour) {
-        if (noOfHour === 1) {
-            return price_base_rate + one_hour_less_price_rate;
-        }
-        if (noOfHour === 2) {
-            return 1;
-        }
-        return 1 - price_base_rate;
-    }
-    return price_base_rate + one_hour_less_price_rate;
+    // if (noOfHour) {
+    //     if (noOfHour === 1) {
+    //         return price_base_rate + one_hour_less_price_rate;
+    //     }
+    //     if (noOfHour === 2) {
+    //         return 1;
+    //     }
+    //     return 1 - price_base_rate;
+    // }
+    return 1;
+    // price_base_rate + one_hour_less_price_rate;
 };
 
 export const determineHours = (hours = 1, { hour_rate }) => {
-    if (hours) {
+    // if (hours) {
 
-        return hours > 2 ? hours - (hour_rate * hours) : hours;
-    }
-    return 1;
+    //     return hours > 2 ? hours - (hour_rate * hours) : hours;
+    // }
+    return hours > 1 ? hours : 1 + hour_rate;
 };
 
 export const determineStudentNo = (no, { student_no_rate }) => {
     if (no) {
-        return no === 1 ? no : no - (no * student_no_rate);
+        return no === 1 ? no : 1 + ((no - 1) * student_no_rate);
     }
     return 1;
 };
@@ -139,8 +140,10 @@ export const determineStudentNo = (no, { student_no_rate }) => {
 export const calculatePrice = (price, { studentNo, hrs, days, rate, wks, discount = 0 }) => {
     const totalPrice = price * studentNo * hrs * days * wks * rate;
     let total = Math.ceil(totalPrice / 100) * 100;
+
     total -= (total * discount) / 100;
     return total;
+    // return total;
 };
 function* updatePrice() {
     const {

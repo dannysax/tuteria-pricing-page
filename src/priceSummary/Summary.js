@@ -105,7 +105,7 @@ let SecondSection = ({ display = false,referral, summary, totalPrice, validateCo
                     <td> Service fee (one-time)
                         
                     </td >
-                    <td className="text-right price-item__price">₦2000</td >
+                    <td className="text-right price-item__price">₦2500</td >
                 </tr >
                 {display2 && !isFetching ? <InviteCode {...{validateCode, referral}} />: null}
 
@@ -120,7 +120,7 @@ SecondSection.propTypes = {
     validateCode: PropTypes.func,
 };
 
-let ThirdSection = ({ actualPrice, processingFee = 2000 }) => (
+let ThirdSection = ({ actualPrice, processingFee = 2500 }) => (
     <div className="panel-body hide-sm">
         <div className="sidebar-text-large space-2">
             <table className={css(thirdStyle.summary_card) }>

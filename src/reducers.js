@@ -60,7 +60,7 @@ const referral = (state={code:"",amount:0, display: true, isFetching: false}, ac
   }
   return state
 }
-const processingFee = (state=2000, action) => state;
+const processingFee = (state=2500, action) => state;
 const subject = (state="", action)=> state
 export default combineReducers({
   hours,
