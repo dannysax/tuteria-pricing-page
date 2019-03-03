@@ -5,7 +5,7 @@ const regularDetails = subject => {
       portfolio: [
         `Verified ${subject} tutor`,
         `Guaranteed ${subject} proficiency`,
-        "0-3 years teaching experience"
+        "1-3 years teaching experience"
       ]
     };
   }
@@ -50,8 +50,8 @@ const eliteDetails = subject => {
       // and an advanced knowledge of ${subject} tutoring.`,
       portfolio: [
         `Top-Rated, 5-Star ${subject} tutor`,
-        `Advanced ${subject} expertise`,
-        "Above 3 years teaching experience",
+        `Advanced ${subject} proficiency`,
+        "Over 3 years teaching experience",
         "100% success rate",
         `Specialist/Certified ${subject} tutor`
       ]
