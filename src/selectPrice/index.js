@@ -12,7 +12,7 @@ import {
   SelectBox,
   Div,
   Label,
-  List
+  List,
 } from "./components";
 import { Provider } from "react-redux";
 import store from "../store";
@@ -35,7 +35,7 @@ const SinglePrice = ({
   subject = null,
   weeks,
   selected,
-  selectPrice
+  selectPrice,
 }) => {
   const { description, portfolio } = getFullDetails(heading, subject);
   const duration = noOfWeeksDisplay(weeks);
@@ -48,7 +48,7 @@ const SinglePrice = ({
       selectPrice(heading, true);
       window.$("html, body").animate(
         {
-          scrollTop: window.$("#root").offset().top
+          scrollTop: window.$("#root").offset().top,
         },
         1000
       );
@@ -83,7 +83,7 @@ const SinglePrice = ({
             selected={selected}
             {...{
               children: selected ? "Selected" : "Proceed",
-              onClick
+              onClick,
             }}
           />
         </SelectDiv>
@@ -98,7 +98,7 @@ const SelectItem = ({
   displayKey,
   plural,
   value = "",
-  onChange
+  onChange,
 }) => (
   <SelectBox className="select-box">
     <Select className="form-control filter-form" {...{ value, onChange }}>
@@ -116,7 +116,7 @@ const FilterForm = ({
   selectNoOfStudent,
   selectHours,
   selectDays,
-  priceFactor
+  priceFactor,
 }) => {
   return (
     <div className="row" id="calc-host-container">
@@ -128,9 +128,9 @@ const FilterForm = ({
             displayKey: "student",
             plural: "students",
             value: priceFactor.no_of_students,
-            onChange: e => {
+            onChange: (e) => {
               selectNoOfStudent(e.target.value);
-            }
+            },
           }}
         />
         <SelectItem
@@ -140,9 +140,9 @@ const FilterForm = ({
             displayKey: "lesson/week",
             plural: "lessons/week",
             value: priceFactor.noOfDays,
-            onChange: e => {
+            onChange: (e) => {
               selectDays(e.target.value);
-            }
+            },
           }}
         />
         <SelectItem
@@ -152,9 +152,9 @@ const FilterForm = ({
             displayKey: "hour/lesson",
             plural: "hours/lesson",
             value: priceFactor.hours_per_day,
-            onChange: e => {
+            onChange: (e) => {
               selectHours(e.target.value);
-            }
+            },
           }}
         />
       </Div>
@@ -168,7 +168,7 @@ const Root = ({
   selectNoOfStudent,
   selectHours,
   selectDays,
-  priceFactor
+  priceFactor,
 }) => (
   <div>
     <div className="text-center padding-bottom-15">
@@ -191,7 +191,7 @@ const Root = ({
               key: index,
               ...price,
               weeks: priceFactor.noOfWeeks,
-              selectPrice
+              selectPrice,
             }}
           />
         ))}
@@ -200,10 +200,7 @@ const Root = ({
   </div>
 );
 
-const App = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Root);
+const App = connect(mapStateToProps, mapDispatchToProps)(Root);
 
 const Pricing = () => {
   return (
@@ -215,6 +212,8 @@ const Pricing = () => {
 store.dispatch({ type: "ON_LOAD" });
 
 window.$(document).ready(() => {
+  let uu = store.getState();
+  console.log({ uu });
   let { selected } = mapStateToProps(store.getState());
   if (selected) {
     window.$("#the-form-section").removeClass("hidden");

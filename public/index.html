@@ -18,20 +18,41 @@
     -->
 	<title>React App</title>
 	<script>
-		window.__REDUX_STATE__ = JSON.parse('{"priceOptions":[{"status":3,"selected":false,"perHour":4000,"heading":"Plan 3"},{"status":1,"selected":false,"perHour":2500,"heading":"Plan 1"},{"status":2,"selected":false,"perHour":3000,"heading":"Plan 2"}],"subject":"Piano","pricingDeterminant":{"price_base_rate":0.08,"one_hour_less_price_rate":1.5,"hour_rate":0.25,"student_no_rate":0.25},"priceFactor":{"no_of_students":1,"hours_per_day":1,"noOfDays":1,"days":["Saturday"],"noOfWeeks":4,"discount":0},"referral":{"code":"","amount":0,"display":false,"isFetching":false}}')
-        window.FORM_PARAMS = {
-            alt_text: "Elite Package",
-            location: "Ikeja Lagos",
-            price: "50000",
-            urgency: "Starts In 3 Days",
-            image: "",
-            heading: "Fashion Design Lessons",
-            subject: "French",
-            reviews: "5",
-            rating: 4.3,
+		let payload = {
+			"priceOptions": [
+				{ "status": 3, "selected": false, "perHour": 4000, "heading": "Plan 3", factor: 1.8 },
+				{ "status": 1, "selected": false, "perHour": 2500, "heading": "Plan 1", factor: 1 },
+				{ "status": 2, "selected": false, "perHour": 3000, "heading": "Plan 2", factor: 1.4 }
+			],
+			"subject": "Piano",
+			"pricingDeterminant": { 
+				"price_base_rate": 0.08, 
+				"one_hour_less_price_rate": 1.5, 
+				"hour_rate": 0, 
+				"student_no_rate": 0.2 ,
+				"vicinityFx": .8,
+				"stateFx": 1,
+				"curriculumFx":1,
+				"purposeFx": 1,
+				subjectsFx: 1,
+			},
+			"priceFactor": { "no_of_students": 1, "hours_per_day": 1, "noOfDays": 1, "days": ["Saturday"], "noOfWeeks": 4, "discount": 0 },
+			"referral": { "code": "", "amount": 0, "display": false, "isFetching": false }
+		}
+		window.__REDUX_STATE__ = JSON.parse(JSON.stringify(payload))
+		window.FORM_PARAMS = {
+			alt_text: "Elite Package",
+			location: "Ikeja Lagos",
+			price: "50000",
+			urgency: "Starts In 3 Days",
+			image: "",
+			heading: "Fashion Design Lessons",
+			subject: "French",
+			reviews: "5",
+			rating: 4.3,
 			phone_number: "09094526878"
-        }
-    </script>
+		}
+	</script>
 	<style>
 		.btn-tutor {
 			color: #fff;
@@ -39,7 +60,7 @@
 			box-shadow: 0 2px 2px rgba(0, 0, 0, .05), inset 0 -2px 0 rgba(0, 0, 0, .12), inset 0 1px 0 rgba(255, 255, 255, .3);
 			border: 1px solid #569f55;
 		}
-		
+
 		.btn-tutor.active,
 		.btn-tutor.focus,
 		.btn-tutor:active,
@@ -56,12 +77,12 @@
 			font-size: 40px;
 			line-height: 45px;
 		}
-		
+
 		.package .subtext {
 			font-size: 16px;
 			line-height: 20px;
 		}
-		
+
 		.filter-form {}
 	</style>
 </head>
@@ -92,12 +113,16 @@
 							<div class="row">
 								<h4 class="font-head row-space-4 padding-top-25 h4_vwthnk">Tell us your goal</h4>
 								<div class="form-group ">
-									<label for="id_expectation" class="control-label">Please what is your specific goal for this lesson? Be as detailed as possible.</label>
+									<label for="id_expectation" class="control-label">Please what is your specific goal
+										for this lesson? Be as detailed as possible.</label>
 									<br>
-									<small class="text-info"><em>E.g. "I want to prepare my son for SAT exams, he needs help with the Math section" or "I want to learn how to play the piano as a beginner" or "I need help with assignments for my kids especially in English"</em></small>
+									<small class="text-info"><em>E.g. "I want to prepare my son for SAT exams, he needs
+											help with the Math section" or "I want to learn how to play the piano as a
+											beginner" or "I need help with assignments for my kids especially in
+											English"</em></small>
 									<textarea name="" id="" rows="4" class="form-control"></textarea>
 								</div>
-								<input id="id_referral_code", name="referral_code" type="hidden" />
+								<input id="id_referral_code" , name="referral_code" type="hidden" />
 								<input type="hidden" id="id_budget" name="budget">
 								<input type="hidden" id="id_plan" name="plan">
 							</div>
@@ -106,7 +131,8 @@
 								<div class="pull-left">
 									<div class="media">
 										<div class="media-body">
-											<h4 class="font-head row-space-4 padding-top-25 brightgreen" style="line-height:0">
+											<h4 class="font-head row-space-4 padding-top-25 brightgreen"
+												style="line-height:0">
 												Personal details
 											</h4>
 										</div>
@@ -121,15 +147,19 @@
 									<div class="col-sm-6">
 										<div class="form-group ">
 											<label for="id_" class="control-label margin-bottom-5">First name</label>
-											<input class="form-control" data-parsley-error-message="Please enter your first name" id="id_first_name" maxlength="40" name="first_name"
-												required="true" type="text">
+											<input class="form-control"
+												data-parsley-error-message="Please enter your first name"
+												id="id_first_name" maxlength="40" name="first_name" required="true"
+												type="text">
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group ">
 											<label for="id_" class="control-label margin-bottom-5">Last name</label>
-											<input class="form-control" data-parsley-error-message="Please enter your last name" id="id_last_name" maxlength="40" name="last_name"
-												required="true" type="text">
+											<input class="form-control"
+												data-parsley-error-message="Please enter your last name"
+												id="id_last_name" maxlength="40" name="last_name" required="true"
+												type="text">
 										</div>
 									</div>
 									<div class="col-sm-6">
@@ -137,7 +167,9 @@
 											<label class="control-label margin-bottom-5">Phone number</label>
 											<div class="input-group">
 												<div class="input-group-addon">+234</div>
-												<input data-parsley-equalto-message="Please enter a valid phone number" class="form-control" data-parsley-maxlength-error-message="Number is too long. Please check again or remove +234"
+												<input data-parsley-equalto-message="Please enter a valid phone number"
+													class="form-control"
+													data-parsley-maxlength-error-message="Number is too long. Please check again or remove +234"
 													id="id_number" name="number" required="true" type="text">
 											</div>
 
@@ -148,8 +180,10 @@
 											<label class="control-label margin-bottom-5">Please re-type phone</label>
 											<div class="input-group">
 												<div class="input-group-addon">+234</div>
-												<input data-parsley-equalto="#id_number" class="form-control" data-parsley-error-message="Please confirm your phone number"
-													id="id_primary_phone_no1" maxlength="14" minlength="10" name="primary_phone_no1" placeholder="Confirm Phone Number"
+												<input data-parsley-equalto="#id_number" class="form-control"
+													data-parsley-error-message="Please confirm your phone number"
+													id="id_primary_phone_no1" maxlength="14" minlength="10"
+													name="primary_phone_no1" placeholder="Confirm Phone Number"
 													required="true" type="text">
 												<input type="hidden" id="number_field" value="07035209976">
 											</div>
@@ -158,49 +192,52 @@
 									</div>
 									<div class="col-sm-6 col-md-6 pad-up-18">
 										<div class="form-group ">
-											<label for="id_gender" class="control-label margin-bottom-5">Preferred gender of tutor</label>
+											<label for="id_gender" class="control-label margin-bottom-5">Preferred
+												gender of tutor</label>
 											<select class="form-control" id="id_gender" name="gender">
-                                            <option value="" selected="selected">Any gender is fine</option>
-                                            <option value="M">I prefer a Male</option>
-                                            <option value="F">I prefer a Female</option>
-                                        </select>
+												<option value="" selected="selected">Any gender is fine</option>
+												<option value="M">I prefer a Male</option>
+												<option value="F">I prefer a Female</option>
+											</select>
 										</div>
 									</div>
 
 									<div class="col-sm-6 pad-up-18">
 										<div class="form-group ">
-											<label for="id_Where you heard" class="control-label margin-bottom-5">How did you hear about us?</label>
+											<label for="id_Where you heard" class="control-label margin-bottom-5">How
+												did you hear about us?</label>
 											<select class="form-control" id="id_where_you_heard" name="where_you_heard">
-                                            <option value="" selected="selected">Select One</option>
-                                            <option value="1">TV</option>
-                                            <option value="2">Radio</option>
-                                            <option value="3">Facebook</option>
-                                            <option value="4">LinkedIn</option>
-                                            <option value="5">Twitter</option>
-                                            <option value="6">Search Engine (Google/Yahoo/Bing)</option>
-                                            <option value="7">Friend/Family/Word of Mouth</option>
-                                            <option value="8">SMS Notification</option>
-                                            <option value="9">LindaIkeji Blog</option>
-                                            <option value="10">Nairaland</option>
-                                            <option value="11">BellaNaija</option>
-                                            <option value="12">Instagram</option>
-                                            <option value="13">Others</option>
-                                            <option value="14">Phone call (Generic)</option>
-                                            <option value="15">Phone call (Facebook)</option>
-                                        </select>
+												<option value="" selected="selected">Select One</option>
+												<option value="1">TV</option>
+												<option value="2">Radio</option>
+												<option value="3">Facebook</option>
+												<option value="4">LinkedIn</option>
+												<option value="5">Twitter</option>
+												<option value="6">Search Engine (Google/Yahoo/Bing)</option>
+												<option value="7">Friend/Family/Word of Mouth</option>
+												<option value="8">SMS Notification</option>
+												<option value="9">LindaIkeji Blog</option>
+												<option value="10">Nairaland</option>
+												<option value="11">BellaNaija</option>
+												<option value="12">Instagram</option>
+												<option value="13">Others</option>
+												<option value="14">Phone call (Generic)</option>
+												<option value="15">Phone call (Facebook)</option>
+											</select>
 										</div>
 
 									</div>
 
 								</div>
 
-								<button id="submit_btn" class="btn btn-lg btn-block btn-primary big-btn">Submit Request</button>
+								<button id="submit_btn" class="btn btn-lg btn-block btn-primary big-btn">Submit
+									Request</button>
 							</div>
 						</div>
 					</div>
 
 				</div>
-				
+
 			</div>
 		</div>
 

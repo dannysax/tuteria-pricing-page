@@ -2,6 +2,42 @@ import { put, call, select } from "redux-saga/effects";
 import { takeLatest } from "redux-saga";
 // import { selectedOption, mapStateToProps } from './selectors';
 
+export const determinePricingPlan = (data) => {
+  const locationFx = data.stateFx * data.vicinityFx;
+  const extraStudentFx = data.extraStudentDiscount / 100;
+  const lessonDuration = data.splitRequest[0].lessonDuration;
+
+  const priceReducer = (accumulator, current) => {
+    const scheduleValue =
+      current.lessonDays * current.lessonHours * current.lessonDuration;
+    const learningFx =
+      current.purposeFx * current.curriculumFx * current.subjectsFx;
+    const hourlyRate = current.baseRate * locationFx * learningFx;
+    const singleStudentPrice = hourlyRate * scheduleValue;
+    const additionalStudents = current.students - 1;
+    const totalStudentsPrice =
+      singleStudentPrice * (1 + additionalStudents * extraStudentFx);
+    return accumulator + Math.ceil(totalStudentsPrice / 100) * 100;
+  };
+
+  const lessonReducer = (accumulator, current) => {
+    return accumulator + current.lessonDays;
+  };
+
+  const totalPrice = data.splitRequest.reduce(priceReducer, 0);
+  const totalLessons = data.splitRequest.reduce(lessonReducer, 0);
+  return {
+    // duration:
+    //   lessonDuration === 4
+    //     ? "per month"
+    //     : `for ${Pluralize("week", lessonDuration, true)}`,
+    lessons: lessonDuration * totalLessons,
+    standardPrice: totalPrice * data.standardFx,
+    premiumPrice: totalPrice * data.premiumFx,
+    deluxePrice: totalPrice * data.deluxeFx,
+  };
+};
+
 export const selectedOption = (state) =>
   state.contents.filter((x) => x.selected)[0];
 
@@ -162,14 +198,34 @@ export const determineStudentNo = (no, { student_no_rate }) => {
 };
 
 export const calculatePrice = (
-  price,
-  { studentNo, hrs, days, rate, wks, discount = 0 }
+  { perHour: price, factor = 1, ...rest },
+  {
+    studentNo,
+    hrs,
+    days,
+    rate,
+    wks,
+    discount = 0,
+    locationFx = 1,
+    purposeFx = 1,
+    curriculumFx = 1,
+    subjectsFx = 1,
+    extraStudentFx = 1,
+  }
 ) => {
-  const totalPrice = price * studentNo * hrs * days * wks * rate;
-  let total = Math.ceil(totalPrice / 100) * 100;
+  const scheduleValue = days * hrs * wks;
+  const learningFx = purposeFx * curriculumFx * subjectsFx;
+  const hourlyRate = price * locationFx * learningFx;
+  const singleStudentPrice = hourlyRate * scheduleValue;
+  const additionalStudents = studentNo - 1;
+  const totalStudentsPrice =
+    singleStudentPrice * (1 + additionalStudents * extraStudentFx);
+  let total = Math.ceil(totalStudentsPrice / 100) * 100;
+  //   const totalPrice = price * studentNo * hrs * days * wks * rate;
+  //   let total = Math.ceil(totalPrice / 100) * 100;
 
   total -= (total * discount) / 100;
-  return total;
+  return total * factor;
   // return total;
 };
 function* updatePrice() {
@@ -187,15 +243,17 @@ function* updatePrice() {
   const rate = getPriceRate(pricingDeterminant, parseFloat(hours_per_day));
   yield put({
     type: "UPDATE_PRICE",
-    studentNo: determineStudentNo(
-      parseFloat(no_of_students),
-      pricingDeterminant
-    ),
-    hrs: determineHours(parseFloat(hours_per_day), pricingDeterminant),
+    studentNo: parseFloat(no_of_students),
+    hrs: parseFloat(hours_per_day),
     rate,
     wks: noOfWeeks >= 4 ? 4 : noOfWeeks,
     discount,
     days: parseInt(noOfDays) || 1,
+    locationFx: pricingDeterminant.vicinityFx * pricingDeterminant.stateFx,
+    extraStudentFx: pricingDeterminant.student_no_rate,
+    curriculumFx: pricingDeterminant.curriculumFx,
+    purposeFx: pricingDeterminant.purposeFx,
+    subjectsFx: pricingDeterminant.subjectsFx,
   });
   window.$("#id_hours_per_day").val(hours_per_day);
   window.$("#id_no_of_students").val(no_of_students);
