@@ -2,11 +2,30 @@ import { put, call, select } from "redux-saga/effects";
 import { takeLatest } from "redux-saga";
 // import { selectedOption, mapStateToProps } from './selectors';
 
+const HourFactor = (hourFactors, hours) => {
+  let options = {};
+  hourFactors.forEach((o) => {
+    options[o.hours] = o.factor;
+  });
+  let hour_rate = 1;
+  if (hours <= 1) {
+    hour_rate = options["1 hour"] || 1;
+  } else if (hours > 1 && hours <= 1.5) {
+    hour_rate = options["1.5 hour"] || 1;
+  } else if (hours >= 2 && hours <= 3) {
+    hour_rate = options["2-3 hours"] || 1;
+  } else if (hours > 3 && hours <= 4) {
+    hour_rate = options["4 hours"] || 1;
+  } else {
+    hour_rate = options["5 hours"] || 1;
+  }
+  return hour_rate;
+};
+
 export const determinePricingPlan = (data) => {
   const locationFx = data.stateFx * data.vicinityFx;
   const extraStudentFx = data.extraStudentDiscount / 100;
   const lessonDuration = data.splitRequest[0].lessonDuration;
-
   const priceReducer = (accumulator, current) => {
     const scheduleValue =
       current.lessonDays * current.lessonHours * current.lessonDuration;
@@ -182,12 +201,29 @@ export const getPriceRate = (
   // price_base_rate + one_hour_less_price_rate;
 };
 
-export const determineHours = (hours = 1, { hour_rate }) => {
+export const determineHours = (hours = 1, { hourFactors = [] }) => {
+  let options = {};
+  hourFactors.forEach((o) => {
+    options[o.hours] = o.factor;
+  });
+  let hour_rate = 1;
+  if (hours <= 1) {
+    hour_rate = options["1 hour"] || 1;
+  } else if (hours > 1 && hours <= 1.5) {
+    hour_rate = options["1.5 hour"] || 1;
+  } else if (hours >= 2 && hours <= 3) {
+    hour_rate = options["2-3 hours"] || 1;
+  } else if (hours > 3 && hours <= 4) {
+    hour_rate = options["4 hours"] || 1;
+  } else {
+    hour_rate = options["5 hours"] || 1;
+  }
+  console.log({ hours, hour_rate });
   // if (hours) {
 
   //     return hours > 2 ? hours - (hour_rate * hours) : hours;
   // }
-  return hours > 1 ? hours : 1 + hour_rate;
+  return hours * hour_rate;
 };
 
 export const determineStudentNo = (no, { student_no_rate }) => {
@@ -211,12 +247,15 @@ export const calculatePrice = (
     curriculumFx = 1,
     subjectsFx = 1,
     extraStudentFx = 1,
+    hourFactors = [],
   }
 ) => {
   const scheduleValue = days * hrs * wks;
-  const learningFx = purposeFx * curriculumFx * subjectsFx;
+  const hourFx = HourFactor(hourFactors, hrs);
+  const learningFx = purposeFx * curriculumFx * subjectsFx * hourFx;
   const hourlyRate = price * locationFx * learningFx;
   const singleStudentPrice = hourlyRate * scheduleValue;
+  console.log({ locationFx, learningFx, price, hourlyRate, scheduleValue });
   const additionalStudents = studentNo - 1;
   const totalStudentsPrice =
     singleStudentPrice * (1 + additionalStudents * extraStudentFx);
@@ -253,6 +292,7 @@ function* updatePrice() {
     extraStudentFx: pricingDeterminant.student_no_rate,
     curriculumFx: pricingDeterminant.curriculumFx,
     purposeFx: pricingDeterminant.purposeFx,
+    hourFactors: pricingDeterminant.hourFactors,
     subjectsFx: pricingDeterminant.subjectsFx,
   });
   window.$("#id_hours_per_day").val(hours_per_day);

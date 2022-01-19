@@ -20,21 +20,43 @@
 	<script>
 		let payload = {
 			"priceOptions": [
-				{ "status": 3, "selected": false, "perHour": 4000, "heading": "Plan 3", factor: 1.8 },
 				{ "status": 1, "selected": false, "perHour": 2500, "heading": "Plan 1", factor: 1 },
-				{ "status": 2, "selected": false, "perHour": 3000, "heading": "Plan 2", factor: 1.4 }
+				{ "status": 2, "selected": false, "perHour": 2500, "heading": "Plan 2", factor: 1.4 },
+				{ "status": 3, "selected": false, "perHour": 2500, "heading": "Plan 3", factor: 1.8 },
 			],
 			"subject": "Piano",
-			"pricingDeterminant": { 
-				"price_base_rate": 0.08, 
-				"one_hour_less_price_rate": 1.5, 
-				"hour_rate": 0, 
-				"student_no_rate": 0.2 ,
+			"pricingDeterminant": {
+				"price_base_rate": 0.08,
+				"one_hour_less_price_rate": 1.5,
+				"hour_rate": 0,
+				"student_no_rate": 0.2,
 				"vicinityFx": .8,
 				"stateFx": 1,
-				"curriculumFx":1,
+				"curriculumFx": 1,
 				"purposeFx": 1,
 				subjectsFx: 1,
+				"hourFactors": [
+					{
+						"hours": "1 hour",
+						"factor": 1.85
+					},
+					{
+						"hours": "1.5 hour",
+						"factor": 1.3
+					},
+					{
+						"hours": "2-3 hours",
+						"factor": 1
+					},
+					{
+						"hours": "4 hours",
+						"factor": 0.95
+					},
+					{
+						"hours": "5 hours",
+						"factor": 0.85
+					}
+				]
 			},
 			"priceFactor": { "no_of_students": 1, "hours_per_day": 1, "noOfDays": 1, "days": ["Saturday"], "noOfWeeks": 4, "discount": 0 },
 			"referral": { "code": "", "amount": 0, "display": false, "isFetching": false }
