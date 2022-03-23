@@ -13,10 +13,11 @@
     "react-dom": "^15.3.2",
     "react-overlays": "^0.6.10",
     "react-redux": "^4.4.5",
-    "redux": "^3.6.0",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^2.7.0",
     "redux-saga": "^0.12.1",
-    "redux-thunk": "^2.1.0",
+    "redux-thunk": "^2.4.1",
     "reflux": "^5.0.3",
     "styled-components": "^1.0.10"
   },
